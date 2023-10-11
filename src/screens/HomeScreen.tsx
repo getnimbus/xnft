@@ -533,26 +533,28 @@ export function HomeScreen({ publicKey }: Props) {
               }}
             />
             <View
+              pointerEvents="none"
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: "20px",
+                width: "25px",
                 height: "100%",
                 backgroundImage:
-                  "linear-gradient(to right, rgba(156, 163, 175, 0.5) 0%, rgba(255,255,255,0) 100% )",
+                  "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(0,255,255,0) 100%)",
               }}
             ></View>
 
             <View
+              pointerEvents="none"
               style={{
                 position: "absolute",
                 top: 0,
                 right: 0,
-                width: "20px",
+                width: "25px",
                 height: "100%",
                 backgroundImage:
-                  "linear-gradient(to left,rgba(156, 163, 175, 0.5) 0%, rgba(255,255,255,0) 100%)",
+                "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)"
               }}
             ></View>
           </View>
