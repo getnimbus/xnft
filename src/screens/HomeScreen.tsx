@@ -15,9 +15,13 @@ import { Buffer } from "buffer";
 import bs58 from "bs58";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { wait } from "../utils";
+import { useRecoilState } from "recoil";
+
+import { openModalState } from "../recoil/openModal";
 
 import { ShareIcon } from "../components/Icons/Share";
 import Number from "../components/Number";
+import Overlay from "../components/Overlay";
 
 import Avatar from "../../assets/avatar.svg";
 import DiamondShield from "../../assets/diamond-shield.svg";
@@ -188,8 +192,8 @@ const _spacing = 10;
 export function HomeScreen({ publicKey }: Props) {
   const queryClient = useQueryClient();
   const ref = useRef<FlatList>(null);
+  const [openModal, setOpenModal] = useRecoilState(openModalState);
   const [selectedCheckIn, setSelectedCheckIn] = useState<number>(0);
-  const [isShowSuccess, setIsShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (listCheckin && listCheckin.length !== 0) {
@@ -289,9 +293,9 @@ export function HomeScreen({ publicKey }: Props) {
 
           queryClient.invalidateQueries(["check-in"]);
           setSelectedCheckIn(selectedCheckIn + 1);
-          setIsShowSuccess(true);
+          setOpenModal(true);
           await wait(1000);
-          setIsShowSuccess(false);
+          setOpenModal(false);
         }
       }
     } catch (e) {
@@ -346,6 +350,7 @@ export function HomeScreen({ publicKey }: Props) {
             opacity: 0.3,
           }}
         />
+        <TouchableOpacity onPress={hello}>hello</TouchableOpacity>
         <View style={tw`flex-row items-center justify-start gap-[28px]`}>
           {window.xnft?.metadata?.avatarUrl ? (
             <Image
@@ -412,6 +417,7 @@ export function HomeScreen({ publicKey }: Props) {
               </View>
             </View>
           </View>
+          TE
         </View>
         <View style={tw`py-[16px] rounded-[20px] bg-white gap-[8px]`}>
           <View
@@ -727,29 +733,26 @@ export function HomeScreen({ publicKey }: Props) {
         </View>
       </View>
 
-      {isShowSuccess ? (
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 22,
-            marginTop: "-100px",
-            backgroundColor: "#000000E5",
-          }}
-        >
-          <Text style={tw`text-xl text-white font-bold`}>
-            Received successfully
-          </Text>
-          <Image source={{ uri: Diamond }} style={tw`w-[96px] h-[96px]`} />
-          <Text style={tw`text-2xl text-white font-bold`}>
-            +{dataCheckin?.pointStreak[selectedCheckIn]} Points
-          </Text>
-        </View>
+      {openModal ? (
+        <Overlay>
+          <View
+            style={{
+              height: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 22,
+              marginTop: "-100px",
+            }}
+          >
+            <Text style={tw`text-xl text-white font-bold`}>
+              Received successfully
+            </Text>
+            <Image source={{ uri: Diamond }} style={tw`w-[96px] h-[96px]`} />
+            <Text style={tw`text-2xl text-white font-bold`}>
+              +{dataCheckin?.pointStreak[selectedCheckIn]} Points
+            </Text>
+          </View>
+        </Overlay>
       ) : (
         <></>
       )}

@@ -1,4 +1,7 @@
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
+import { useRecoilValue } from "recoil";
+
+import { openModalState } from "../recoil/openModal";
 
 type Props = {
   active: string;
@@ -7,13 +10,19 @@ type Props = {
 };
 
 export function Screen({ active, style, children }: Props) {
+  const openModal = useRecoilValue(openModalState);
+
   return (
     <View
       style={[
         styles.screen,
         style,
         {
-          backgroundColor: active === "reward" ? "#27326f" : "#fff",
+          backgroundColor: openModal
+            ? "#000000E5"
+            : active === "reward"
+            ? "#27326f"
+            : "#fff",
         },
       ]}
     >
