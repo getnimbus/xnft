@@ -350,7 +350,6 @@ export function HomeScreen({ publicKey }: Props) {
             opacity: 0.3,
           }}
         />
-        <TouchableOpacity onPress={hello}>hello</TouchableOpacity>
         <View style={tw`flex-row items-center justify-start gap-[28px]`}>
           {window.xnft?.metadata?.avatarUrl ? (
             <Image
