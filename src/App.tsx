@@ -23,8 +23,8 @@ function Main() {
   const [publicKey, setPublicKey] = useState<string>("");
 
   useEffect(() => {
-    if (window.xnft.publicKeys.solana) {
-      setPublicKey(window.xnft.publicKeys.solana);
+    if (window.xnft?.publicKeys?.solana) {
+      setPublicKey(window.xnft?.publicKeys?.solana);
     }
   }, []);
 

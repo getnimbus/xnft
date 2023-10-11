@@ -4,8 +4,9 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { shorterAddress } from "../utils";
 
+import LeaderboardRank from "../components/Icons/LeaderboardRank";
+
 import DiamondShield from "../../assets/diamond-shield.svg";
-import LeaderboardRank from "../../assets/leaderboard-rank.png";
 import FirstPlace from "../../assets/first-place.svg";
 import SecondPlace from "../../assets/second-place.svg";
 import ThirdPlace from "../../assets/third-place.svg";
@@ -77,7 +78,6 @@ export function TrophyScreen({ publicKey }: Props) {
           backgroundColor: "#27326F",
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          paddingBottom: 60,
           paddingTop: 50,
           paddingHorizontal: 8,
           gap: 16,
@@ -101,9 +101,9 @@ export function TrophyScreen({ publicKey }: Props) {
             Leaderboard
           </Text>
           <View style={tw`flex-row justify-center`}>
-            <View style={tw`w-[360px]`}>
+            <View style={tw`w-[340px]`}>
               <View style={tw`flex-row`}>
-                <View style={tw`w-[100px] justify-end h-[220px]`}>
+                <View style={tw`w-[100px] justify-end h-[200px]`}>
                   <View style={tw`h-[95px]`}>
                     <Image
                       source={{ uri: SecondPlace }}
@@ -116,15 +116,17 @@ export function TrophyScreen({ publicKey }: Props) {
                     </Text>
                     <View style={tw`flex-row items-center gap-1`}>
                       <Text style={tw`text-base text-[#FFCB59] font-bold`}>
-                        {formatDataLeaderboard[1]?.point}
+                        {formatDataLeaderboard[1]?.point || 0}
                       </Text>
-                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>GM</Text>
+                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>
+                        GM Point
+                      </Text>
                     </View>
                   </View>
                 </View>
 
                 <View style={tw`flex-1`}>
-                  <View style={tw`h-[145px]`}>
+                  <View style={tw`h-[125px]`}>
                     <Image
                       source={{ uri: FirstPlace }}
                       style={tw`w-full h-full object-contain`}
@@ -136,14 +138,16 @@ export function TrophyScreen({ publicKey }: Props) {
                     </Text>
                     <View style={tw`flex-row items-center gap-1`}>
                       <Text style={tw`text-base text-[#FFCB59] font-bold`}>
-                        {formatDataLeaderboard[0]?.point}
+                        {formatDataLeaderboard[0]?.point || 0}
                       </Text>
-                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>GM</Text>
+                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>
+                        GM Point
+                      </Text>
                     </View>
                   </View>
                 </View>
 
-                <View style={tw`w-[100px] justify-end h-[220px]`}>
+                <View style={tw`w-[100px] justify-end h-[200px]`}>
                   <View style={tw`h-[95px]`}>
                     <Image
                       source={{ uri: ThirdPlace }}
@@ -156,23 +160,23 @@ export function TrophyScreen({ publicKey }: Props) {
                     </Text>
                     <View style={tw`flex-row items-center gap-1`}>
                       <Text style={tw`text-base text-[#FFCB59] font-bold`}>
-                        {formatDataLeaderboard[2]?.point}
+                        {formatDataLeaderboard[2]?.point || 0}
                       </Text>
-                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>GM</Text>
+                      <Text style={tw`text-[#FFFFFFCC] font-medium`}>
+                        GM Point
+                      </Text>
                     </View>
                   </View>
                 </View>
               </View>
-              <Image
-                resizeMode="contain"
-                source={{ uri: LeaderboardRank }}
-                style={tw`w-full h-full object-contain`}
-              />
+              <View style={tw`-mt-[20px]`}>
+                <LeaderboardRank />
+              </View>
             </View>
           </View>
         </View>
       </View>
-      <View style={tw`mt-[70px] gap-2`}>
+      <View style={tw`-mt-[105px] gap-2`}>
         <View
           style={{
             paddingHorizontal: 4,
@@ -206,11 +210,19 @@ export function TrophyScreen({ publicKey }: Props) {
             <Text style={tw`text-[#000000CC]`}>Your current rank</Text>
             <View style={tw`flex-row items-center`}>
               <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
-                <Text
-                  style={tw`text-[#131313] text-2xl font-semibold w-[36px]`}
-                >
-                  {formatDataLeaderboard[currentUserRank]?.rank || "N/A"}
-                </Text>
+                {formatDataLeaderboard[currentUserRank]?.rank ? (
+                  <Text
+                    style={tw`text-[#131313] text-2xl font-semibold w-[36px]`}
+                  >
+                    {formatDataLeaderboard[currentUserRank]?.rank}
+                  </Text>
+                ) : (
+                  <Text
+                    style={tw`text-[#131313] text-2xl font-semibold w-[46px]`}
+                  >
+                    N/A
+                  </Text>
+                )}
                 <Text style={tw`text-[#131313] font-medium text-base`}>
                   {shorterAddress(
                     formatDataLeaderboard[currentUserRank]?.owner
@@ -230,34 +242,40 @@ export function TrophyScreen({ publicKey }: Props) {
           <Text style={tw`pt-[16px] px-[20px] text-lg font-semibold`}>
             Runners up
           </Text>
-          <FlatList
-            data={formatDataLeaderboard.slice(0, 20)}
-            keyExtractor={(item) => item.owner.toString()}
-            renderItem={({ item }) => {
-              return (
-                <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
-                  <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
-                    <Text
-                      style={tw`text-[#27326F] text-xl font-semibold w-[36px]`}
-                    >
-                      {item?.rank}
-                    </Text>
-                    <Text style={tw`text-[#131313] font-medium text-base`}>
-                      {shorterAddress(item?.owner)}
-                    </Text>
+          {formatDataLeaderboard.length !== 0 ? (
+            <FlatList
+              data={formatDataLeaderboard.slice(0, 20)}
+              keyExtractor={(item) => item.owner.toString()}
+              renderItem={({ item }) => {
+                return (
+                  <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
+                    <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
+                      <Text
+                        style={tw`text-[#27326F] text-xl font-semibold w-[36px]`}
+                      >
+                        {item?.rank}
+                      </Text>
+                      <Text style={tw`text-[#131313] font-medium text-base`}>
+                        {shorterAddress(item?.owner)}
+                      </Text>
+                    </View>
+                    <View style={tw`flex-row items-center gap-1`}>
+                      <Text style={tw`text-[#FFB800] text-lg font-semibold`}>
+                        {item?.point}
+                      </Text>
+                      <Text style={tw`text-[#131313CC] font-normal text-sm`}>
+                        Point
+                      </Text>
+                    </View>
                   </View>
-                  <View style={tw`flex-row items-center gap-1`}>
-                    <Text style={tw`text-[#FFB800] text-lg font-semibold`}>
-                      {item?.point}
-                    </Text>
-                    <Text style={tw`text-[#131313CC] font-normal text-sm`}>
-                      Point
-                    </Text>
-                  </View>
-                </View>
-              );
-            }}
-          />
+                );
+              }}
+            />
+          ) : (
+            <Text style={tw`py-[16px] font-medium text-base px-[20px]`}>
+              Empty
+            </Text>
+          )}
         </View>
       </View>
     </View>

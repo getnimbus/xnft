@@ -14,9 +14,9 @@ import { useQuery, useQueryClient } from "react-query";
 import { Buffer } from "buffer";
 import bs58 from "bs58";
 import { Sparklines, SparklinesLine } from "react-sparklines";
+import { wait } from "../utils";
 
 import { ShareIcon } from "../components/Icons/Share";
-
 import Number from "../components/Number";
 
 import Avatar from "../../assets/avatar.svg";
@@ -27,13 +27,10 @@ import Background from "../../assets/linear-background.svg";
 import FirstPlace from "../../assets/first-place.svg";
 import SecondPlace from "../../assets/second-place.svg";
 import ThirdPlace from "../../assets/third-place.svg";
-
 import FirstReward from "../../assets/first-reward.svg";
 import SecondReward from "../../assets/second-reward.svg";
 import ThirdReward from "../../assets/third-reward.svg";
-
 import Received from "../../assets/received-icon.svg";
-import { wait } from "../utils";
 
 type Props = {
   publicKey: string;
@@ -365,7 +362,7 @@ export function HomeScreen({ publicKey }: Props) {
             }}
           >
             <Text style={tw`text-lg font-bold text-white`}>
-              {window.xnft?.metadata?.username}
+              {window.xnft?.metadata?.username || "-"}
             </Text>
             <View
               style={{
@@ -379,7 +376,7 @@ export function HomeScreen({ publicKey }: Props) {
                 <RankIcon rank={rank + 1} />
                 <View style={tw`flex-1`}>
                   <Text style={tw`text-base font-bold text-white`}>
-                    #{rank + 1}
+                    #{rank + 1 || "N/A"}
                   </Text>
                   <Text style={tw`text-sm font-medium  text-[#FFFFFFCC]`}>
                     Rank
@@ -554,7 +551,7 @@ export function HomeScreen({ publicKey }: Props) {
                 width: "25px",
                 height: "100%",
                 backgroundImage:
-                "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)"
+                  "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)",
               }}
             ></View>
           </View>
@@ -601,80 +598,83 @@ export function HomeScreen({ publicKey }: Props) {
             This month reward
           </Text>
 
-          <FlatList
-            data={dataRedeemReward?.monthRewards.map(
-              (item: any, index: number) => {
-                return {
-                  ...item,
-                  rank: index + 1,
-                };
-              }
-            )}
-            keyExtractor={(item) => item.rank.toString()}
-            contentContainerStyle={{ paddingLeft: _spacing }}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            renderItem={({ item }) => {
-              return (
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 10,
-                    paddingVertical: 16,
-                    paddingHorizontal: 44,
-                    backgroundColor: "#232B5C",
-                    borderRadius: 20,
-                    marginRight: _spacing,
-                  }}
-                >
-                  <RewardIcon rank={item.rank} />
-                  {item?.type === "TOKEN" ? (
-                    <View style={tw`flex-row items-center gap-1 py-4`}>
-                      <Text style={tw`text-xl font-semibold text-white`}>
-                        {item?.amount}
-                      </Text>
-                      <Text style={tw`text-xl font-semibold text-white`}>
-                        {item?.symbol}
-                      </Text>
-                    </View>
-                  ) : (
-                    <View style={tw`gap-1 justify-center items-center`}>
-                      <View
-                        style={{
-                          borderRadius: 5,
-                          overflow: "hidden",
-                          width: "38px",
-                          height: "38px",
-                          backgroundColor: "#fff",
-                        }}
-                      >
-                        <Image
-                          source={{
-                            uri:
-                              item?.url ||
-                              "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
-                          }}
-                          style={tw`w-full h-full object-contain`}
-                        />
+          {dataRedeemReward?.monthRewards !== undefined ? (
+            <FlatList
+              data={dataRedeemReward?.monthRewards.map(
+                (item: any, index: number) => {
+                  return {
+                    ...item,
+                    rank: index + 1,
+                  };
+                }
+              )}
+              keyExtractor={(item) => item.rank.toString()}
+              contentContainerStyle={{ paddingLeft: _spacing }}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              renderItem={({ item }) => {
+                return (
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 10,
+                      paddingVertical: 16,
+                      paddingHorizontal: 44,
+                      backgroundColor: "#232B5C",
+                      borderRadius: 20,
+                      marginRight: _spacing,
+                    }}
+                  >
+                    <RewardIcon rank={item.rank} />
+                    {item?.type === "TOKEN" ? (
+                      <View style={tw`flex-row items-center gap-1 py-4`}>
+                        <Text style={tw`text-xl font-semibold text-white`}>
+                          {item?.amount}
+                        </Text>
+                        <Text style={tw`text-xl font-semibold text-white`}>
+                          {item?.symbol}
+                        </Text>
                       </View>
-                      <Text style={tw`text-white text-sm font-medium`}>
-                        {item?.name}
-                      </Text>
-                    </View>
-                  )}
-                  <Text style={tw`text-white text-base font-medium`}>
-                    {item.rank}st Rank
-                  </Text>
-                </View>
-              );
-            }}
-          />
+                    ) : (
+                      <View style={tw`gap-1 justify-center items-center`}>
+                        <View
+                          style={{
+                            borderRadius: 5,
+                            overflow: "hidden",
+                            width: "38px",
+                            height: "38px",
+                            backgroundColor: "#fff",
+                          }}
+                        >
+                          <Image
+                            source={{
+                              uri:
+                                item?.url ||
+                                "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
+                            }}
+                            style={tw`w-full h-full object-contain`}
+                          />
+                        </View>
+                        <Text style={tw`text-white text-sm font-medium`}>
+                          {item?.name}
+                        </Text>
+                      </View>
+                    )}
+                    <Text style={tw`text-white text-base font-medium`}>
+                      {item.rank}st Rank
+                    </Text>
+                  </View>
+                );
+              }}
+            />
+          ) : (
+            <Text style={tw`font-medium text-base px-[20px]`}>Empty</Text>
+          )}
         </View>
 
         <View
           style={{
-            // paddingHorizontal: 20,
             paddingVertical: 16,
             boxShadow: "0px 4px 30px 0px #0000001A",
             borderRadius: 20,

@@ -7,13 +7,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import tw from "twrnc";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+import RedeemCard from "../components/RedeemCard";
+
 import Diamond from "../../assets/diamond.svg";
 import Background from "../../assets/linear-background.svg";
-import { RedeemCard } from "../components/RedeemCard";
 
 const handleGetDataCheckin = async (address: string) => {
   const response = await axios.get(
@@ -178,7 +179,7 @@ export function RewardScreen({ publicKey }: Props) {
             )}
           </View>
         ) : (
-          <View></View>
+          <></>
         )}
 
         {selectedType === "your" ? (
@@ -200,7 +201,7 @@ export function RewardScreen({ publicKey }: Props) {
             )}
           </View>
         ) : (
-          <View></View>
+          <></>
         )}
       </View>
     </View>

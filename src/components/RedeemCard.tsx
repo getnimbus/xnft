@@ -15,7 +15,7 @@ type Props = {
   handleRedeem: (data: any) => void;
 };
 
-export function RedeemCard({
+export default function RedeemCard({
   isRedeem = false,
   redeemData,
   handleRedeem,
