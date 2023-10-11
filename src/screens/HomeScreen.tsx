@@ -458,6 +458,9 @@ export function HomeScreen({ publicKey }: Props) {
                           ? _colors.active
                           : _colors.inactive,
                       opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
+                      transform: [
+                        { scale: fIndex === selectedCheckIn ? 1 : 0.9 },
+                      ],
                     }}
                     transition={{
                       duration: 0.5,
@@ -604,75 +607,102 @@ export function HomeScreen({ publicKey }: Props) {
           </Text>
 
           {dataRedeemReward?.monthRewards !== undefined ? (
-            <FlatList
-              data={dataRedeemReward?.monthRewards.map(
-                (item: any, index: number) => {
-                  return {
-                    ...item,
-                    rank: index + 1,
-                  };
-                }
-              )}
-              keyExtractor={(item) => item.rank.toString()}
-              contentContainerStyle={{ paddingLeft: _spacing }}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: 10,
-                      paddingVertical: 16,
-                      paddingHorizontal: 44,
-                      backgroundColor: "#232B5C",
-                      borderRadius: 20,
-                      marginRight: _spacing,
-                    }}
-                  >
-                    <RewardIcon rank={item.rank} />
-                    {item?.type === "TOKEN" ? (
-                      <View style={tw`flex-row items-center gap-1 py-4`}>
-                        <Text style={tw`text-xl font-semibold text-white`}>
-                          {item?.amount}
-                        </Text>
-                        <Text style={tw`text-xl font-semibold text-white`}>
-                          {item?.symbol}
-                        </Text>
-                      </View>
-                    ) : (
-                      <View style={tw`gap-1 justify-center items-center`}>
-                        <View
-                          style={{
-                            borderRadius: 5,
-                            overflow: "hidden",
-                            width: "38px",
-                            height: "38px",
-                            backgroundColor: "#fff",
-                          }}
-                        >
-                          <Image
-                            source={{
-                              uri:
-                                item?.url ||
-                                "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
-                            }}
-                            style={tw`w-full h-full object-contain`}
-                          />
+            <View style={tw`relative`}>
+              <FlatList
+                data={dataRedeemReward?.monthRewards.map(
+                  (item: any, index: number) => {
+                    return {
+                      ...item,
+                      rank: index + 1,
+                    };
+                  }
+                )}
+                keyExtractor={(item) => item.rank.toString()}
+                contentContainerStyle={{ paddingLeft: _spacing }}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                renderItem={({ item }) => {
+                  return (
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 10,
+                        paddingVertical: 16,
+                        paddingHorizontal: 44,
+                        backgroundColor: "#232B5C",
+                        borderRadius: 20,
+                        marginRight: _spacing,
+                      }}
+                    >
+                      <RewardIcon rank={item.rank} />
+                      {item?.type === "TOKEN" ? (
+                        <View style={tw`flex-row items-center gap-1 py-4`}>
+                          <Text style={tw`text-xl font-semibold text-white`}>
+                            {item?.amount}
+                          </Text>
+                          <Text style={tw`text-xl font-semibold text-white`}>
+                            {item?.symbol}
+                          </Text>
                         </View>
-                        <Text style={tw`text-white text-sm font-medium`}>
-                          {item?.name}
-                        </Text>
-                      </View>
-                    )}
-                    <Text style={tw`text-white text-base font-medium`}>
-                      {item.rank}st Rank
-                    </Text>
-                  </View>
-                );
-              }}
-            />
+                      ) : (
+                        <View style={tw`gap-1 justify-center items-center`}>
+                          <View
+                            style={{
+                              borderRadius: 5,
+                              overflow: "hidden",
+                              width: "38px",
+                              height: "38px",
+                              backgroundColor: "#fff",
+                            }}
+                          >
+                            <Image
+                              source={{
+                                uri:
+                                  item?.url ||
+                                  "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
+                              }}
+                              style={tw`w-full h-full object-contain`}
+                            />
+                          </View>
+                          <Text style={tw`text-white text-sm font-medium`}>
+                            {item?.name}
+                          </Text>
+                        </View>
+                      )}
+                      <Text style={tw`text-white text-base font-medium`}>
+                        {item.rank}st Rank
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
+              <View
+                pointerEvents="none"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "25px",
+                  height: "100%",
+                  backgroundImage:
+                    "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(0,255,255,0) 100%)",
+                }}
+              ></View>
+
+              <View
+                pointerEvents="none"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "25px",
+                  height: "100%",
+                  backgroundImage:
+                    "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)",
+                }}
+              ></View>
+            </View>
           ) : (
             <Text style={tw`font-medium text-base px-[20px]`}>Empty</Text>
           )}
