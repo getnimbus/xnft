@@ -543,7 +543,7 @@ export function HomeScreen({ publicKey }: Props) {
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: "25px",
+                width: "35px",
                 height: "100%",
                 backgroundImage:
                   "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(0,255,255,0) 100%)",
@@ -556,7 +556,7 @@ export function HomeScreen({ publicKey }: Props) {
                 position: "absolute",
                 top: 0,
                 right: 0,
-                width: "25px",
+                width: "35px",
                 height: "100%",
                 backgroundImage:
                   "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)",
