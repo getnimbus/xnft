@@ -66,23 +66,45 @@ export function RedeemCard({
             <Text style={tw`w-[55px] text-[#131313CC] text-sm font-normal`}>
               {redeemData?.remains} left
             </Text>
-            <TouchableOpacity
-              style={tw`flex-row items-center gap-[46px] py-[12px] px-[16px] bg-[#1E96FC] rounded-[12px]`}
-              onPress={() => {
-                handleRedeem(redeemData);
-              }}
-            >
-              <View style={tw`flex-row items-center gap-[4px]`}>
-                <Image
-                  source={{ uri: Diamond }}
-                  style={tw`w-[20px] h-[20px]`}
-                />
-                <Text style={tw`text-white text-lg font-semibold`}>
-                  {redeemData?.cost}
+
+            {redeemData?.remains === 0 ? (
+              <View
+                style={tw`flex-row items-center gap-[46px] py-[12px] px-[16px] bg-[#9ca3af] rounded-[12px]`}
+              >
+                <View style={tw`flex-row items-center gap-[4px]`}>
+                  <Image
+                    source={{ uri: Diamond }}
+                    style={tw`w-[20px] h-[20px]`}
+                  />
+                  <Text style={tw`text-white text-lg font-semibold`}>
+                    {redeemData?.cost}
+                  </Text>
+                </View>
+                <Text style={tw`text-white text-base font-semibold`}>
+                  Redeem
                 </Text>
               </View>
-              <Text style={tw`text-white text-base font-semibold`}>Redeem</Text>
-            </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={tw`flex-row items-center gap-[46px] py-[12px] px-[16px] bg-[#1E96FC] rounded-[12px]`}
+                onPress={() => {
+                  handleRedeem(redeemData);
+                }}
+              >
+                <View style={tw`flex-row items-center gap-[4px]`}>
+                  <Image
+                    source={{ uri: Diamond }}
+                    style={tw`w-[20px] h-[20px]`}
+                  />
+                  <Text style={tw`text-white text-lg font-semibold`}>
+                    {redeemData?.cost}
+                  </Text>
+                </View>
+                <Text style={tw`text-white text-base font-semibold`}>
+                  Redeem
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         ) : (
           <View

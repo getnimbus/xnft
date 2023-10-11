@@ -205,8 +205,10 @@ export function TrophyScreen({ publicKey }: Props) {
             <Text style={tw`text-[#000000CC]`}>Your current rank</Text>
             <View style={tw`flex-row items-center`}>
               <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
-                <Text style={tw`text-[#131313] text-2xl font-semibold`}>
-                  {formatDataLeaderboard[currentUserRank]?.rank}
+                <Text
+                  style={tw`text-[#131313] text-2xl font-semibold w-[36px]`}
+                >
+                  {formatDataLeaderboard[currentUserRank]?.rank || "N/A"}
                 </Text>
                 <Text style={tw`text-[#131313] font-medium text-base`}>
                   {shorterAddress(
@@ -216,7 +218,7 @@ export function TrophyScreen({ publicKey }: Props) {
               </View>
               <View style={tw`flex-row items-center gap-1`}>
                 <Text style={tw`text-lg font-semibold`}>
-                  {formatDataLeaderboard[currentUserRank]?.point}
+                  {formatDataLeaderboard[currentUserRank]?.point || 0}
                 </Text>
                 <Text style={tw`text-[#131313CC] font-normal text-sm`}>
                   Point
@@ -228,13 +230,15 @@ export function TrophyScreen({ publicKey }: Props) {
             Runners up
           </Text>
           <FlatList
-            data={formatDataLeaderboard}
+            data={formatDataLeaderboard.slice(0, 20)}
             keyExtractor={(item) => item.owner.toString()}
             renderItem={({ item }) => {
               return (
                 <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
                   <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
-                    <Text style={tw`text-[#131313] text-2xl font-semibold`}>
+                    <Text
+                      style={tw`text-[#27326F] text-xl font-semibold w-[36px]`}
+                    >
                       {item?.rank}
                     </Text>
                     <Text style={tw`text-[#131313] font-medium text-base`}>
@@ -242,7 +246,9 @@ export function TrophyScreen({ publicKey }: Props) {
                     </Text>
                   </View>
                   <View style={tw`flex-row items-center gap-1`}>
-                    <Text style={tw`text-lg font-semibold`}>{item?.point}</Text>
+                    <Text style={tw`text-[#FFB800] text-lg font-semibold`}>
+                      {item?.point}
+                    </Text>
                     <Text style={tw`text-[#131313CC] font-normal text-sm`}>
                       Point
                     </Text>

@@ -33,6 +33,7 @@ import SecondReward from "../../assets/second-reward.svg";
 import ThirdReward from "../../assets/third-reward.svg";
 
 import Received from "../../assets/received-icon.svg";
+import { wait } from "../utils";
 
 type Props = {
   publicKey: string;
@@ -191,6 +192,7 @@ export function HomeScreen({ publicKey }: Props) {
   const queryClient = useQueryClient();
   const ref = useRef<FlatList>(null);
   const [selectedCheckIn, setSelectedCheckIn] = useState<number>(0);
+  const [isShowSuccess, setIsShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (listCheckin && listCheckin.length !== 0) {
@@ -235,7 +237,6 @@ export function HomeScreen({ publicKey }: Props) {
     staleTime: Infinity,
     retry: false,
   });
-  console.log("dataOverview: ", dataOverview);
 
   const overviewLineChart = dataOverview?.performance.map((item: any) => {
     return item?.networth;
@@ -291,6 +292,9 @@ export function HomeScreen({ publicKey }: Props) {
 
           queryClient.invalidateQueries(["check-in"]);
           setSelectedCheckIn(selectedCheckIn + 1);
+          setIsShowSuccess(true);
+          await wait(1000);
+          setIsShowSuccess(false);
         }
       }
     } catch (e) {
@@ -318,6 +322,7 @@ export function HomeScreen({ publicKey }: Props) {
         minHeight: "100vh",
         paddingBottom: "40px",
         backgroundColor: "white",
+        position: "relative",
       }}
     >
       <View
@@ -640,21 +645,22 @@ export function HomeScreen({ publicKey }: Props) {
 
         <View
           style={{
-            paddingHorizontal: 20,
+            // paddingHorizontal: 20,
             paddingVertical: 16,
             boxShadow: "0px 4px 30px 0px #0000001A",
             borderRadius: 20,
             backgroundColor: "#fff",
+            gap: 6,
           }}
         >
-          <View style={tw`flex-row justify-between items-center`}>
+          <View style={tw`flex-row justify-between items-center px-[20px]`}>
             <Text style={tw`text-base text-[#00000099] font-semibold`}>
               Last 24h gain
             </Text>
             <NimbusAppLink url="https://app.getnimbus.io" />
           </View>
           <View style={tw`flex-row justify-between`}>
-            <View style={tw`flex-1`}>
+            <View style={tw`flex-1 gap-1 pl-[20px]`}>
               <Text style={tw`text-2xl font-semibold`}>
                 <Number
                   number={dataOverview?.overview?.networth}
@@ -684,13 +690,40 @@ export function HomeScreen({ publicKey }: Props) {
               </View>
             </View>
             <View style={tw`flex-1`}>
-              <Sparklines data={overviewLineChart}>
+              <Sparklines data={overviewLineChart} height={86}>
                 <SparklinesLine color="#089981" />
               </Sparklines>
             </View>
           </View>
         </View>
       </View>
+
+      {isShowSuccess ? (
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 22,
+            marginTop: "-100px",
+            backgroundColor: "#000000E5",
+          }}
+        >
+          <Text style={tw`text-xl text-white font-bold`}>
+            Received successfully
+          </Text>
+          <Image source={{ uri: Diamond }} style={tw`w-[96px] h-[96px]`} />
+          <Text style={tw`text-2xl text-white font-bold`}>
+            +{dataCheckin?.pointStreak[selectedCheckIn]} Points
+          </Text>
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }
