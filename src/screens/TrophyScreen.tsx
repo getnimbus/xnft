@@ -164,6 +164,7 @@ export function TrophyScreen({ publicKey }: Props) {
                 </View>
               </View>
               <Image
+                resizeMode="contain"
                 source={{ uri: LeaderboardRank }}
                 style={tw`w-full h-full object-contain`}
               />
