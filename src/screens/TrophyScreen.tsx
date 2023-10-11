@@ -5,7 +5,7 @@ import axios from "axios";
 import { shorterAddress } from "../utils";
 
 import DiamondShield from "../../assets/diamond-shield.svg";
-import LeaderboardRank from "../../assets/leaderboard-rank.svg";
+import LeaderboardRank from "../../assets/leaderboard-rank.png";
 import FirstPlace from "../../assets/first-place.svg";
 import SecondPlace from "../../assets/second-place.svg";
 import ThirdPlace from "../../assets/third-place.svg";

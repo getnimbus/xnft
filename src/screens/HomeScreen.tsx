@@ -426,60 +426,94 @@ export function HomeScreen({ publicKey }: Props) {
             </Text>
             <Text style={tw`font-medium`}>people send GM today</Text>
           </View>
-          <FlatList
-            ref={ref}
-            onScrollToIndexFailed={(info) => {
-              const wait = new Promise((resolve) => setTimeout(resolve, 500));
-              wait.then(() => {
-                ref.current?.scrollToIndex({
-                  index: info.index,
-                  animated: true,
+          <View style={tw`relative`}>
+            <FlatList
+              ref={ref}
+              onScrollToIndexFailed={(info) => {
+                const wait = new Promise((resolve) => setTimeout(resolve, 500));
+                wait.then(() => {
+                  ref.current?.scrollToIndex({
+                    index: info.index,
+                    animated: true,
+                  });
                 });
-              });
-            }}
-            data={listCheckin}
-            keyExtractor={(item) => item.key.toString()}
-            contentContainerStyle={{ paddingLeft: _spacing }}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            renderItem={({ item, index: fIndex }) => {
-              return (
-                <MotiView
-                  animate={{
-                    backgroundColor:
-                      fIndex === selectedCheckIn
-                        ? _colors.active
-                        : _colors.inactive,
-                    borderColor:
-                      fIndex === selectedCheckIn
-                        ? _colors.active
-                        : _colors.inactive,
-                    opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                  }}
-                  style={{
-                    marginRight: _spacing,
-                    padding: _spacing,
-                    borderWidth: 2,
-                    borderRadius: 12,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 12,
-                    paddingVertical: 8,
-                    paddingHorizontal: 18,
-                  }}
-                >
-                  {fIndex === selectedCheckIn && !dataCheckin?.checkinable ? (
+              }}
+              data={listCheckin}
+              keyExtractor={(item) => item.key.toString()}
+              contentContainerStyle={{ paddingLeft: _spacing }}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              renderItem={({ item, index: fIndex }) => {
+                return (
+                  <MotiView
+                    animate={{
+                      backgroundColor:
+                        fIndex === selectedCheckIn
+                          ? _colors.active
+                          : _colors.inactive,
+                      borderColor:
+                        fIndex === selectedCheckIn
+                          ? _colors.active
+                          : _colors.inactive,
+                      opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                    }}
+                    style={{
+                      marginRight: _spacing,
+                      padding: _spacing,
+                      borderWidth: 2,
+                      borderRadius: 12,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 12,
+                      paddingVertical: 8,
+                      paddingHorizontal: 18,
+                    }}
+                  >
                     <View style={tw`flex-row items-center gap-1`}>
-                      <Image
-                        source={{ uri: Received }}
-                        style={tw`w-[12px] h-[12px]`}
-                      />
-                      <Text style={tw`text-white font-bold`}>Received</Text>
+                      {fIndex === selectedCheckIn &&
+                      !dataCheckin?.checkinable ? (
+                        <Image
+                          source={{ uri: Received }}
+                          style={tw`w-[12px] h-[12px]`}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      <MotiText
+                        animate={{
+                          color: fIndex === selectedCheckIn ? "#fff" : "#000",
+                        }}
+                        transition={{
+                          duration: 0.5,
+                        }}
+                        style={{
+                          fontWeight: "bold",
+                          flex: 1,
+                        }}
+                      >
+                        Day {item.key + 1}
+                      </MotiText>
                     </View>
-                  ) : (
+
+                    <View
+                      style={{
+                        borderRadius: 12,
+                        flex: 1,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: Diamond }}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          filter:
+                            fIndex < selectedCheckIn ? "grayscale(100%)" : "",
+                        }}
+                      />
+                    </View>
                     <MotiText
                       animate={{
                         color: fIndex === selectedCheckIn ? "#fff" : "#000",
@@ -492,43 +526,36 @@ export function HomeScreen({ publicKey }: Props) {
                         flex: 1,
                       }}
                     >
-                      Day {item.key + 1}
+                      +{item.value}
                     </MotiText>
-                  )}
-                  <View
-                    style={{
-                      borderRadius: 12,
-                      flex: 1,
-                    }}
-                  >
-                    <Image
-                      source={{ uri: Diamond }}
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        filter:
-                          fIndex < selectedCheckIn ? "grayscale(100%)" : "",
-                      }}
-                    />
-                  </View>
-                  <MotiText
-                    animate={{
-                      color: fIndex === selectedCheckIn ? "#fff" : "#000",
-                    }}
-                    transition={{
-                      duration: 0.5,
-                    }}
-                    style={{
-                      fontWeight: "bold",
-                      flex: 1,
-                    }}
-                  >
-                    +{item.value}
-                  </MotiText>
-                </MotiView>
-              );
-            }}
-          />
+                  </MotiView>
+                );
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "20px",
+                height: "100%",
+                backgroundImage:
+                  "linear-gradient(to right, rgba(156, 163, 175, 0.5) 0%, rgba(255,255,255,0) 100% )",
+              }}
+            ></View>
+
+            <View
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                width: "20px",
+                height: "100%",
+                backgroundImage:
+                  "linear-gradient(to left,rgba(156, 163, 175, 0.5) 0%, rgba(255,255,255,0) 100%)",
+              }}
+            ></View>
+          </View>
           <View style={tw`px-[20px]`}>
             {dataCheckin?.checkinable ? (
               <TouchableOpacity
