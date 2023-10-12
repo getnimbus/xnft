@@ -725,7 +725,7 @@ export function HomeScreen({ publicKey }: Props) {
         >
           <View style={tw`flex-row justify-between items-center px-[20px]`}>
             <Text style={tw`text-sm text-[#00000099] font-semibold`}>
-              Last 24h gain
+              Net Worth
             </Text>
             <NimbusAppLink url="https://app.getnimbus.io" />
           </View>
