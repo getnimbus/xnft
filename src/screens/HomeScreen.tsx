@@ -17,6 +17,7 @@ import bs58 from "bs58";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { wait } from "../utils";
 import { useRecoilState } from "recoil";
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 import { openModalState } from "../recoil/openModal";
 
@@ -27,6 +28,7 @@ import Overlay from "../components/Overlay";
 import Avatar from "../../assets/avatar.png";
 import DiamondShield from "../../assets/diamond-shield.svg";
 import Diamond from "../../assets/diamond.svg";
+import DiamondReward from "../../assets/diamond-reward.svg";
 import OtherRank from "../../assets/other-rank.svg";
 import Background from "../../assets/linear-background.svg";
 import FirstPlace from "../../assets/first-place.svg";
@@ -305,7 +307,7 @@ export function HomeScreen({ publicKey }: Props) {
           queryClient.invalidateQueries(["check-in"]);
           setSelectedCheckIn(selectedCheckIn + 1);
           setOpenModal(true);
-          await wait(1000);
+          await wait(5000);
           setOpenModal(false);
         }
       }
@@ -327,6 +329,8 @@ export function HomeScreen({ publicKey }: Props) {
       </View>
     );
   }
+
+  console.log(selectedCheckIn);
 
   return (
     <View
@@ -774,19 +778,22 @@ export function HomeScreen({ publicKey }: Props) {
 
       {openModal ? (
         <Overlay>
+          <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
           <View
             style={{
               height: "100%",
+              width: '100vw',
+              overflow: "hidden",
               justifyContent: "center",
               alignItems: "center",
               gap: 22,
               marginTop: "-100px",
             }}
           >
-            <Text style={tw`text-xl text-white font-bold`}>
+            <Text style={tw`text-2xl text-white font-bold`}>
               Received successfully
             </Text>
-            <Image source={{ uri: Diamond }} style={tw`w-[96px] h-[96px]`} />
+            <Image source={{ uri: DiamondReward }} style={tw`w-[220px] h-[220px] mt-[-40px] mb-[-30px]`} />
             <Text style={tw`text-2xl text-white font-bold`}>
               +{dataCheckin?.pointStreak[selectedCheckIn]} Points
             </Text>

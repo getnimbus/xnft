@@ -55,6 +55,7 @@ export function RewardScreen({ publicKey }: Props) {
     data: dataRedeemReward,
     error: errorDataRedeemReward,
     isLoading: loadingDataRedeemReward,
+    refetch
   } = useQuery<any>({
     queryFn: () => handleGetDataRedeemReward(publicKey),
     queryKey: ["redeem-reward", publicKey],
@@ -81,6 +82,9 @@ export function RewardScreen({ publicKey }: Props) {
       await axios.post("https://api.getnimbus.io/v2/reward/redeem", {
         address: publicKey,
         campaignName: data?.campaignName,
+      }).then(() => {
+        setSelectedType('your');
+        refetch();
       });
     } catch (e) {
       console.error(e);

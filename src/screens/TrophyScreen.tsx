@@ -212,13 +212,13 @@ export function TrophyScreen({ publicKey }: Props) {
               <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
                 {formatDataLeaderboard[currentUserRank]?.rank ? (
                   <Text
-                    style={tw`text-[#131313] text-2xl font-semibold w-[36px]`}
+                    style={tw`text-[#131313] text-2xl font-semibold w-[16px]`}
                   >
                     {formatDataLeaderboard[currentUserRank]?.rank}
                   </Text>
                 ) : (
                   <Text
-                    style={tw`text-[#131313] text-2xl font-semibold w-[46px]`}
+                    style={tw`text-[#131313] text-2xl font-semibold w-[30px]`}
                   >
                     N/A
                   </Text>
@@ -249,9 +249,9 @@ export function TrophyScreen({ publicKey }: Props) {
               renderItem={({ item }) => {
                 return (
                   <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
-                    <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
+                    <View style={tw`flex-1 flex-row items-center gap-[10px]`}>
                       <Text
-                        style={tw`text-[#27326F] text-xl font-semibold w-[30px]`}
+                        style={tw`text-[#27326F] text-xl font-semibold w-[26px]`}
                       >
                         {item?.rank}
                       </Text>
