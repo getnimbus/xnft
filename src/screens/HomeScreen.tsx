@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { MotiView, MotiText } from "@motify/components";
 import tw from "twrnc";
@@ -35,6 +36,12 @@ import FirstReward from "../../assets/first-reward.svg";
 import SecondReward from "../../assets/second-reward.svg";
 import ThirdReward from "../../assets/third-reward.svg";
 import Received from "../../assets/received-icon.svg";
+
+import FirstRewardBG from "../../assets/1.svg";
+import SecondRewardBG from "../../assets/2.svg";
+import ThirdRewardBG from "../../assets/3.svg";
+
+const bgImgs = [FirstRewardBG, SecondRewardBG, ThirdRewardBG];
 
 type Props = {
   publicKey: string;
@@ -347,7 +354,7 @@ export function HomeScreen({ publicKey }: Props) {
             transform: "translateX(-50%)",
             width: "350px",
             height: "284.54px",
-            opacity: 0.3,
+            opacity: 0.9,
           }}
         />
         <View style={tw`flex-row items-center justify-start gap-[28px]`}>
@@ -416,7 +423,6 @@ export function HomeScreen({ publicKey }: Props) {
               </View>
             </View>
           </View>
-          TE
         </View>
         <View style={tw`py-[16px] rounded-[20px] bg-white gap-[8px]`}>
           <View
@@ -495,7 +501,7 @@ export function HomeScreen({ publicKey }: Props) {
                           duration: 0.5,
                         }}
                         style={{
-                          fontWeight: "bold",
+                          fontWeight: "medium",
                           flex: 1,
                         }}
                       >
@@ -621,59 +627,59 @@ export function HomeScreen({ publicKey }: Props) {
                 contentContainerStyle={{ paddingLeft: _spacing }}
                 showsHorizontalScrollIndicator={false}
                 horizontal
-                renderItem={({ item }) => {
+                renderItem={({ item, index }) => {
                   return (
-                    <View
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: 10,
-                        paddingVertical: 16,
-                        paddingHorizontal: 44,
-                        backgroundColor: "#232B5C",
-                        borderRadius: 20,
-                        marginRight: _spacing,
-                      }}
-                    >
-                      <RewardIcon rank={item.rank} />
-                      {item?.type === "TOKEN" ? (
-                        <View style={tw`flex-row items-center gap-1 py-4`}>
-                          <Text style={tw`text-xl font-semibold text-white`}>
-                            {item?.amount}
+                    <ImageBackground source={bgImgs[index]} resizeMode="contain" style={{ borderRadius: 20}}>
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: 10,
+                          paddingVertical: 16,
+                          paddingHorizontal: 32,
+                          // backgroundColor: "#232B5C",
+                        }}
+                      >
+                          <RewardIcon rank={item.rank} />
+                          {item?.type === "TOKEN" ? (
+                            <View style={tw`flex-row items-center gap-1 py-4`}>
+                              <Text style={tw`text-xl font-semibold text-white`}>
+                                {item?.amount}
+                              </Text>
+                              <Text style={tw`text-xl font-semibold text-white`}>
+                                {item?.symbol}
+                              </Text>
+                            </View>
+                          ) : (
+                            <View style={tw`gap-1 justify-center items-center`}>
+                              <View
+                                style={{
+                                  borderRadius: 5,
+                                  overflow: "hidden",
+                                  width: "38px",
+                                  height: "38px",
+                                  backgroundColor: "#fff",
+                                }}
+                              >
+                                <Image
+                                  source={{
+                                    uri:
+                                      item?.url ||
+                                      "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
+                                  }}
+                                  style={tw`w-full h-full object-contain`}
+                                />
+                              </View>
+                              <Text style={tw`text-white text-sm font-medium`}>
+                                {item?.name}
+                              </Text>
+                            </View>
+                          )}
+                          <Text style={tw`text-white text-base font-medium`}>
+                            {item.rank}st Rank
                           </Text>
-                          <Text style={tw`text-xl font-semibold text-white`}>
-                            {item?.symbol}
-                          </Text>
-                        </View>
-                      ) : (
-                        <View style={tw`gap-1 justify-center items-center`}>
-                          <View
-                            style={{
-                              borderRadius: 5,
-                              overflow: "hidden",
-                              width: "38px",
-                              height: "38px",
-                              backgroundColor: "#fff",
-                            }}
-                          >
-                            <Image
-                              source={{
-                                uri:
-                                  item?.url ||
-                                  "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
-                              }}
-                              style={tw`w-full h-full object-contain`}
-                            />
-                          </View>
-                          <Text style={tw`text-white text-sm font-medium`}>
-                            {item?.name}
-                          </Text>
-                        </View>
-                      )}
-                      <Text style={tw`text-white text-base font-medium`}>
-                        {item.rank}st Rank
-                      </Text>
-                    </View>
+                      </View>
+                    </ImageBackground>
                   );
                 }}
               />
@@ -683,10 +689,10 @@ export function HomeScreen({ publicKey }: Props) {
                   position: "absolute",
                   top: 0,
                   left: 0,
-                  width: "25px",
+                  width: "35px",
                   height: "100%",
                   backgroundImage:
-                    "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(0,255,255,0) 100%)",
+                    "linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(0,255,255,0) 100%)",
                 }}
               ></View>
 
@@ -696,10 +702,10 @@ export function HomeScreen({ publicKey }: Props) {
                   position: "absolute",
                   top: 0,
                   right: 0,
-                  width: "25px",
+                  width: "35px",
                   height: "100%",
                   backgroundImage:
-                    "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.5) 100%)",
+                    "linear-gradient(90deg, rgba(0,212,255,0) 0%, rgba(255,255,255,0.2) 100%)",
                 }}
               ></View>
             </View>
@@ -718,7 +724,7 @@ export function HomeScreen({ publicKey }: Props) {
           }}
         >
           <View style={tw`flex-row justify-between items-center px-[20px]`}>
-            <Text style={tw`text-base text-[#00000099] font-semibold`}>
+            <Text style={tw`text-sm text-[#00000099] font-semibold`}>
               Last 24h gain
             </Text>
             <NimbusAppLink url="https://app.getnimbus.io" />

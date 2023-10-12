@@ -93,7 +93,7 @@ export function TrophyScreen({ publicKey }: Props) {
             transform: "translateX(-50%)",
             width: "350px",
             height: "284.54px",
-            opacity: 0.3,
+            opacity: 0.9,
           }}
         />
         <View>
@@ -194,7 +194,7 @@ export function TrophyScreen({ publicKey }: Props) {
           }}
         >
           <Image source={{ uri: Infor }} style={tw`w-[16px] h-[16px]`} />
-          <Text style={tw`font-medium`}>This rank will reset every month</Text>
+          <Text style={tw`text-xs text-[#131313]`}>This rank will reset every month</Text>
         </View>
         <View
           style={{
@@ -234,7 +234,7 @@ export function TrophyScreen({ publicKey }: Props) {
                   {formatDataLeaderboard[currentUserRank]?.point || 0}
                 </Text>
                 <Text style={tw`text-[#131313CC] font-normal text-sm`}>
-                  Point
+                  GM Point
                 </Text>
               </View>
             </View>
@@ -244,14 +244,14 @@ export function TrophyScreen({ publicKey }: Props) {
           </Text>
           {formatDataLeaderboard.length !== 0 ? (
             <FlatList
-              data={formatDataLeaderboard.slice(0, 20)}
+              data={formatDataLeaderboard.slice(3, 20)}
               keyExtractor={(item) => item.owner.toString()}
               renderItem={({ item }) => {
                 return (
                   <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
                     <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
                       <Text
-                        style={tw`text-[#27326F] text-xl font-semibold w-[36px]`}
+                        style={tw`text-[#27326F] text-xl font-semibold w-[30px]`}
                       >
                         {item?.rank}
                       </Text>
@@ -264,7 +264,7 @@ export function TrophyScreen({ publicKey }: Props) {
                         {item?.point}
                       </Text>
                       <Text style={tw`text-[#131313CC] font-normal text-sm`}>
-                        Point
+                        GM Point
                       </Text>
                     </View>
                   </View>

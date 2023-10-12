@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
   screen: {
     width: "100vw",
     height: "100vh",
-    overflow: "scroll",
+    overflow: "auto",
   },
 });
