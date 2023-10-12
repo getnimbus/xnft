@@ -40,6 +40,7 @@ import Received from "../../assets/received-icon.svg";
 import FirstRewardBG from "../../assets/1.svg";
 import SecondRewardBG from "../../assets/2.svg";
 import ThirdRewardBG from "../../assets/3.svg";
+import { useMetadata } from "../hooks/xnft-hooks";
 
 const bgImgs = [FirstRewardBG, SecondRewardBG, ThirdRewardBG];
 
@@ -271,6 +272,9 @@ export function HomeScreen({ publicKey }: Props) {
     }
   }, [dataCheckin]);
 
+  const metadata = useMetadata();
+  console.log(metadata);
+
   const handleCheckin = async () => {
     try {
       const nonce = await axios.post(
@@ -358,9 +362,9 @@ export function HomeScreen({ publicKey }: Props) {
           }}
         />
         <View style={tw`flex-row items-center justify-start gap-[28px]`}>
-          {window.xnft?.metadata?.avatarUrl ? (
+          {metadata?.avatarUrl ? (
             <Image
-              source={{ uri: window.xnft?.metadata?.avatarUrl }}
+              source={{ uri: metadata?.avatarUrl }}
               style={tw`w-[72px] h-[72px]`}
             />
           ) : (
@@ -373,7 +377,7 @@ export function HomeScreen({ publicKey }: Props) {
             }}
           >
             <Text style={tw`text-lg font-bold text-white`}>
-              {window.xnft?.metadata?.username || "-"}
+              {metadata?.username || "N/A"}
             </Text>
             <View
               style={{

@@ -1,9 +1,11 @@
 {
-  "name": "xNFT Quickstart",
+  "name": "Nimbus",
   "version": "0.0.1",
   "storage": "",
-  "description": "React Native Example",
-  "website": "http://wao.gg",
+  "description": "Loyalty xNFT for your web3 journey",
+  "longDescription": "Tracking your portfolio on multiple platforms, optimize your earnings while enjoying our perk",
+  "tag": "defi",
+  "website": "https://getnimbus.io",
   "kind": "app",
   "icon": {
     "md": "./assets/icon.png"

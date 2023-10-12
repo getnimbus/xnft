@@ -15,18 +15,15 @@ import { RewardScreen } from "./screens/RewardScreen";
 import { HomeIcon } from "./components/Icons/Home";
 import { TrophyIcon } from "./components/Icons/Trophy";
 import { GiftIcon } from "./components/Icons/Gift";
+import { usePublicKeys } from "./hooks/xnft-hooks";
 
 const queryClient = new QueryClient();
 
 function Main() {
   const [active, setActive] = useState<"home" | "trophy" | "reward">("home");
-  const [publicKey, setPublicKey] = useState<string>("");
+  const keys = usePublicKeys();
 
-  useEffect(() => {
-    if (window.xnft?.publicKeys?.solana) {
-      setPublicKey(window.xnft?.publicKeys?.solana);
-    }
-  }, []);
+  const publicKey = keys?.solana || '';
 
   return (
     <Screen active={active}>
