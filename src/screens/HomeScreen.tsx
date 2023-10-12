@@ -168,14 +168,14 @@ const RewardIcon = ({ rank }: { rank: number }) => {
 
 const handleGetDataCheckin = async (address: string) => {
   const response = await axios.get(
-    `https://api-staging.getnimbus.io/v2/checkin/${address}`
+    `https://api.getnimbus.io/v2/checkin/${address}`
   );
   return response.data.data;
 };
 
 const handleGetDataRedeemReward = async (address: string) => {
   const response = await axios.post(
-    `https://api-staging.getnimbus.io/v2/reward`,
+    `https://api.getnimbus.io/v2/reward`,
     {
       address,
     }
@@ -185,7 +185,7 @@ const handleGetDataRedeemReward = async (address: string) => {
 
 const handleGetDataOverview = async (address: string) => {
   const response = await axios.get(
-    `https://api-staging.getnimbus.io/v2/app-overview/${address}`
+    `https://api.getnimbus.io/v2/app-overview/${address}`
   );
   return response.data.data;
 };
@@ -274,7 +274,7 @@ export function HomeScreen({ publicKey }: Props) {
   const handleCheckin = async () => {
     try {
       const nonce = await axios.post(
-        "https://api-staging.getnimbus.io/v2/checkin-app/nonce",
+        "https://api.getnimbus.io/v2/checkin-app/nonce",
         {
           address: publicKey,
         }
@@ -293,7 +293,7 @@ export function HomeScreen({ publicKey }: Props) {
           });
 
         if (signature) {
-          await axios.post("https://api-staging.getnimbus.io/v2/checkin-app", {
+          await axios.post("https://api.getnimbus.io/v2/checkin-app", {
             address: publicKey,
             signature,
           });

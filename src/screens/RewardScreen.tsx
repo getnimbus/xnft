@@ -18,14 +18,14 @@ import Background from "../../assets/linear-background.svg";
 
 const handleGetDataCheckin = async (address: string) => {
   const response = await axios.get(
-    `https://api-staging.getnimbus.io/v2/checkin/${address}`
+    `https://api.getnimbus.io/v2/checkin/${address}`
   );
   return response.data.data;
 };
 
 const handleGetDataRedeemReward = async (address: string) => {
   const response = await axios.post(
-    `https://api-staging.getnimbus.io/v2/reward`,
+    `https://api.getnimbus.io/v2/reward`,
     {
       address,
     }
@@ -78,7 +78,7 @@ export function RewardScreen({ publicKey }: Props) {
 
   const handleRedeem = async (data: any) => {
     try {
-      await axios.post("https://api-staging.getnimbus.io/v2/reward/redeem", {
+      await axios.post("https://api.getnimbus.io/v2/reward/redeem", {
         address: publicKey,
         campaignName: data?.campaignName,
       });

@@ -18,7 +18,7 @@ type Props = {
 
 const handleGetDataCheckin = async (address: string) => {
   const response = await axios.get(
-    `https://api-staging.getnimbus.io/v2/checkin/${address}`
+    `https://api.getnimbus.io/v2/checkin/${address}`
   );
   return response.data.data;
 };
