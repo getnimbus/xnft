@@ -24,7 +24,7 @@ import { ShareIcon } from "../components/Icons/Share";
 import Number from "../components/Number";
 import Overlay from "../components/Overlay";
 
-import Avatar from "../../assets/avatar.svg";
+import Avatar from "../../assets/avatar.png";
 import DiamondShield from "../../assets/diamond-shield.svg";
 import Diamond from "../../assets/diamond.svg";
 import OtherRank from "../../assets/other-rank.svg";
