@@ -448,20 +448,7 @@ export function HomeScreen({ publicKey }: Props) {
               horizontal
               renderItem={({ item, index: fIndex }) => {
                 return (
-                  <MotiView
-                    animate={{
-                      backgroundColor:
-                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
-                      borderColor:
-                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
-                      opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
-                      transform: [
-                        { scale: fIndex === selectedCheckIn ? 1 : 0.9 },
-                      ],
-                    }}
-                    transition={{
-                      duration: 0.5,
-                    }}
+                  <View
                     style={{
                       marginRight: 10,
                       padding: 10,
@@ -472,6 +459,14 @@ export function HomeScreen({ publicKey }: Props) {
                       gap: 12,
                       paddingVertical: 8,
                       paddingHorizontal: 18,
+                      backgroundColor:
+                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
+                      borderColor:
+                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
+                      opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
+                      transform: [
+                        { scale: fIndex === selectedCheckIn ? 1 : 0.9 },
+                      ],
                     }}
                   >
                     <View style={tw`flex-row items-center gap-1`}>
@@ -484,20 +479,15 @@ export function HomeScreen({ publicKey }: Props) {
                       ) : (
                         <></>
                       )}
-                      <MotiText
-                        animate={{
-                          color: fIndex === selectedCheckIn ? "#fff" : "#000",
-                        }}
-                        transition={{
-                          duration: 0.5,
-                        }}
+                      <Text
                         style={{
                           fontWeight: "medium",
                           flex: 1,
+                          color: fIndex === selectedCheckIn ? "#fff" : "#000",
                         }}
                       >
                         Day {item.key + 1}
-                      </MotiText>
+                      </Text>
                     </View>
 
                     <View
@@ -516,21 +506,16 @@ export function HomeScreen({ publicKey }: Props) {
                         }}
                       />
                     </View>
-                    <MotiText
-                      animate={{
-                        color: fIndex === selectedCheckIn ? "#fff" : "#000",
-                      }}
-                      transition={{
-                        duration: 0.5,
-                      }}
+                    <Text
                       style={{
                         fontWeight: "bold",
                         flex: 1,
+                        color: fIndex === selectedCheckIn ? "#fff" : "#000",
                       }}
                     >
                       +{item.value}
-                    </MotiText>
-                  </MotiView>
+                    </Text>
+                  </View>
                 );
               }}
             />

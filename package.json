@@ -12,7 +12,6 @@
     "@coral-xyz/common-public": "^0.2.0-latest.3375",
     "@expo-google-fonts/dev": "*",
     "@expo/vector-icons": "^13.0.0",
-    "@motify/components": "^0.18.0",
     "@react-native-clipboard/clipboard": "^1.12.1",
     "@react-navigation/bottom-tabs": "6.3.1",
     "@react-navigation/native": "6.0.10",
