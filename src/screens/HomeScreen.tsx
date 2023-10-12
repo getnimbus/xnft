@@ -17,7 +17,8 @@ import bs58 from "bs58";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { wait } from "../utils";
 import { useRecoilState } from "recoil";
-import ConfettiCannon from 'react-native-confetti-cannon';
+import ConfettiCannon from "react-native-confetti-cannon";
+import { useMetadata } from "../hooks/xnft-hooks";
 
 import { openModalState } from "../recoil/openModal";
 
@@ -42,7 +43,6 @@ import Received from "../../assets/received-icon.svg";
 import FirstRewardBG from "../../assets/1.svg";
 import SecondRewardBG from "../../assets/2.svg";
 import ThirdRewardBG from "../../assets/3.svg";
-import { useMetadata } from "../hooks/xnft-hooks";
 
 const bgImgs = [FirstRewardBG, SecondRewardBG, ThirdRewardBG];
 
@@ -177,12 +177,9 @@ const handleGetDataCheckin = async (address: string) => {
 };
 
 const handleGetDataRedeemReward = async (address: string) => {
-  const response = await axios.post(
-    `https://api.getnimbus.io/v2/reward`,
-    {
-      address,
-    }
-  );
+  const response = await axios.post(`https://api.getnimbus.io/v2/reward`, {
+    address,
+  });
   return response.data.data;
 };
 
@@ -193,14 +190,9 @@ const handleGetDataOverview = async (address: string) => {
   return response.data.data;
 };
 
-const _colors = {
-  active: "#000000",
-  inactive: "#EEEEEE",
-};
-const _spacing = 10;
-
 export function HomeScreen({ publicKey }: Props) {
   const queryClient = useQueryClient();
+  const metadata = useMetadata();
   const ref = useRef<FlatList>(null);
   const [openModal, setOpenModal] = useRecoilState(openModalState);
   const [selectedCheckIn, setSelectedCheckIn] = useState<number>(0);
@@ -211,7 +203,7 @@ export function HomeScreen({ publicKey }: Props) {
         index: selectedCheckIn,
         animated: true,
         viewPosition: 0.5,
-        viewOffset: _spacing,
+        viewOffset: 10,
       });
     }
   }, [selectedCheckIn]);
@@ -274,9 +266,6 @@ export function HomeScreen({ publicKey }: Props) {
     }
   }, [dataCheckin]);
 
-  const metadata = useMetadata();
-  console.log(metadata);
-
   const handleCheckin = async () => {
     try {
       const nonce = await axios.post(
@@ -329,8 +318,6 @@ export function HomeScreen({ publicKey }: Props) {
       </View>
     );
   }
-
-  console.log(selectedCheckIn);
 
   return (
     <View
@@ -456,7 +443,7 @@ export function HomeScreen({ publicKey }: Props) {
               }}
               data={listCheckin}
               keyExtractor={(item) => item.key.toString()}
-              contentContainerStyle={{ paddingLeft: _spacing }}
+              contentContainerStyle={{ paddingLeft: 10 }}
               showsHorizontalScrollIndicator={false}
               horizontal
               renderItem={({ item, index: fIndex }) => {
@@ -464,13 +451,9 @@ export function HomeScreen({ publicKey }: Props) {
                   <MotiView
                     animate={{
                       backgroundColor:
-                        fIndex === selectedCheckIn
-                          ? _colors.active
-                          : _colors.inactive,
+                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
                       borderColor:
-                        fIndex === selectedCheckIn
-                          ? _colors.active
-                          : _colors.inactive,
+                        fIndex === selectedCheckIn ? "#000000" : "#EEEEEE",
                       opacity: fIndex >= selectedCheckIn ? 1 : 0.4,
                       transform: [
                         { scale: fIndex === selectedCheckIn ? 1 : 0.9 },
@@ -480,8 +463,8 @@ export function HomeScreen({ publicKey }: Props) {
                       duration: 0.5,
                     }}
                     style={{
-                      marginRight: _spacing,
-                      padding: _spacing,
+                      marginRight: 10,
+                      padding: 10,
                       borderWidth: 2,
                       borderRadius: 12,
                       alignItems: "center",
@@ -632,12 +615,16 @@ export function HomeScreen({ publicKey }: Props) {
                   }
                 )}
                 keyExtractor={(item) => item.rank.toString()}
-                contentContainerStyle={{ paddingLeft: _spacing }}
+                contentContainerStyle={{ paddingLeft: 10 }}
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 renderItem={({ item, index }) => {
                   return (
-                    <ImageBackground source={bgImgs[index]} resizeMode="contain" style={{ borderRadius: 20}}>
+                    <ImageBackground
+                      source={bgImgs[index]}
+                      resizeMode="contain"
+                      style={{ borderRadius: 20 }}
+                    >
                       <View
                         style={{
                           justifyContent: "center",
@@ -648,44 +635,44 @@ export function HomeScreen({ publicKey }: Props) {
                           // backgroundColor: "#232B5C",
                         }}
                       >
-                          <RewardIcon rank={item.rank} />
-                          {item?.type === "TOKEN" ? (
-                            <View style={tw`flex-row items-center gap-1 py-4`}>
-                              <Text style={tw`text-xl font-semibold text-white`}>
-                                {item?.amount}
-                              </Text>
-                              <Text style={tw`text-xl font-semibold text-white`}>
-                                {item?.symbol}
-                              </Text>
-                            </View>
-                          ) : (
-                            <View style={tw`gap-1 justify-center items-center`}>
-                              <View
-                                style={{
-                                  borderRadius: 5,
-                                  overflow: "hidden",
-                                  width: "38px",
-                                  height: "38px",
-                                  backgroundColor: "#fff",
+                        <RewardIcon rank={item.rank} />
+                        {item?.type === "TOKEN" ? (
+                          <View style={tw`flex-row items-center gap-1 py-4`}>
+                            <Text style={tw`text-xl font-semibold text-white`}>
+                              {item?.amount}
+                            </Text>
+                            <Text style={tw`text-xl font-semibold text-white`}>
+                              {item?.symbol}
+                            </Text>
+                          </View>
+                        ) : (
+                          <View style={tw`gap-1 justify-center items-center`}>
+                            <View
+                              style={{
+                                borderRadius: 5,
+                                overflow: "hidden",
+                                width: "38px",
+                                height: "38px",
+                                backgroundColor: "#fff",
+                              }}
+                            >
+                              <Image
+                                source={{
+                                  uri:
+                                    item?.url ||
+                                    "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
                                 }}
-                              >
-                                <Image
-                                  source={{
-                                    uri:
-                                      item?.url ||
-                                      "https://i.seadn.io/gae/TLlpInyXo6n9rzaWHeuXxM6SDoFr0cFA0TWNpFQpv5-oNpXlYKzxsVUynd0XUIYBW2G8eso4-4DSQuDR3LC_2pmzfHCCrLBPcBdU?auto=format&dpr=1&w=384",
-                                  }}
-                                  style={tw`w-full h-full object-contain`}
-                                />
-                              </View>
-                              <Text style={tw`text-white text-sm font-medium`}>
-                                {item?.name}
-                              </Text>
+                                style={tw`w-full h-full object-contain`}
+                              />
                             </View>
-                          )}
-                          <Text style={tw`text-white text-base font-medium`}>
-                            {item.rank}st Rank
-                          </Text>
+                            <Text style={tw`text-white text-sm font-medium`}>
+                              {item?.name}
+                            </Text>
+                          </View>
+                        )}
+                        <Text style={tw`text-white text-base font-medium`}>
+                          {item.rank}st Rank
+                        </Text>
                       </View>
                     </ImageBackground>
                   );
@@ -778,11 +765,11 @@ export function HomeScreen({ publicKey }: Props) {
 
       {openModal ? (
         <Overlay>
-          <ConfettiCannon count={200} origin={{x: -10, y: 0}} />
+          <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} />
           <View
             style={{
               height: "100%",
-              width: '100vw',
+              width: "100vw",
               overflow: "hidden",
               justifyContent: "center",
               alignItems: "center",
@@ -793,7 +780,10 @@ export function HomeScreen({ publicKey }: Props) {
             <Text style={tw`text-2xl text-white font-bold`}>
               Received successfully
             </Text>
-            <Image source={{ uri: DiamondReward }} style={tw`w-[220px] h-[220px] mt-[-40px] mb-[-30px]`} />
+            <Image
+              source={{ uri: DiamondReward }}
+              style={tw`w-[220px] h-[220px] mt-[-40px] mb-[-30px]`}
+            />
             <Text style={tw`text-2xl text-white font-bold`}>
               +{dataCheckin?.pointStreak[selectedCheckIn]} Points
             </Text>
