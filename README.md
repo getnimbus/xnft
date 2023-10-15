@@ -1,6 +1,9 @@
-# xnft-quickstart
+# Nimbus xNFT
 
-Quickstart repo for building your own xNFT.
+Loyalty xNFT for your Web3 journey
+
+![xNFT](./assets/1.png)
+![xNFT](./assets/3.png)
 
 ## Developing
 
