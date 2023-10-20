@@ -194,7 +194,9 @@ export function TrophyScreen({ publicKey }: Props) {
           }}
         >
           <Image source={{ uri: Infor }} style={tw`w-[16px] h-[16px]`} />
-          <Text style={tw`text-xs text-[#131313]`}>This rank will reset every month</Text>
+          <Text style={tw`text-xs text-[#131313]`}>
+            This rank will reset every month
+          </Text>
         </View>
         <View
           style={{
@@ -212,13 +214,13 @@ export function TrophyScreen({ publicKey }: Props) {
               <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
                 {formatDataLeaderboard[currentUserRank]?.rank ? (
                   <Text
-                    style={tw`text-[#131313] text-2xl font-semibold w-[16px]`}
+                    style={tw`text-[#131313] text-2xl font-semibold w-[30px]`}
                   >
                     {formatDataLeaderboard[currentUserRank]?.rank}
                   </Text>
                 ) : (
                   <Text
-                    style={tw`text-[#131313] text-2xl font-semibold w-[30px]`}
+                    style={tw`text-[#131313] text-base font-semibold w-[30px]`}
                   >
                     N/A
                   </Text>
@@ -251,7 +253,7 @@ export function TrophyScreen({ publicKey }: Props) {
                   <View style={tw`flex-row items-center px-[20px] py-[16px]`}>
                     <View style={tw`flex-1 flex-row items-center gap-[10px]`}>
                       <Text
-                        style={tw`text-[#27326F] text-xl font-semibold w-[26px]`}
+                        style={tw`text-[#27326F] text-xl font-semibold w-[40px]`}
                       >
                         {item?.rank}
                       </Text>

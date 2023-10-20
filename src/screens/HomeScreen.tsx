@@ -356,7 +356,7 @@ export function HomeScreen({ publicKey }: Props) {
           {metadata?.avatarUrl ? (
             <Image
               source={{ uri: metadata?.avatarUrl }}
-              style={tw`w-[72px] h-[72px]`}
+              style={tw`w-[72px] h-[72px] rounded-full`}
             />
           ) : (
             <Image source={{ uri: Avatar }} style={tw`w-[72px] h-[100px]`} />
