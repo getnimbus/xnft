@@ -4,6 +4,8 @@ Loyalty xNFT for your Web3 journey
 
 ![xNFT](./assets/intro.png)
 
+Blog Post: https://getnimbus.io/blog/how-xnft-enhance-users-experience-on-Nimbus
+
 ## Developing
 
 Once you've installed Backpack, get started building your xNFT with these steps. Note that the packages here will always use the latest, which correspond to the latest tagged build of Backpack. If you have unexepected issues, make sure your package versions match the app version.
