@@ -2,8 +2,7 @@
 
 Loyalty xNFT for your Web3 journey
 
-![xNFT](./assets/1.png)
-![xNFT](./assets/3.png)
+![xNFT](./assets/intro.png)
 
 ## Developing
 
@@ -32,7 +31,6 @@ yarn dev
 Now that you have your xNFT dev server running, open it in the Backpack simulator to see it run.
 
 That's it!
-
 
 ## Build & Publish
 
