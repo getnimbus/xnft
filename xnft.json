@@ -1,6 +1,6 @@
 {
   "name": "Nimbus",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "storage": "aws",
   "description": "Loyalty xNFT for your Web3 journey",
   "longDescription": "Tracking your portfolio on multiple platforms, optimize your earnings while enjoying our perk",
@@ -15,8 +15,7 @@
     "./assets/1.png",
     "./assets/2.png",
     "./assets/3.png",
-    "./assets/4.png",
-    "./assets/5.png"
+    "./assets/4.png"
   ],
   "entrypoints": {
     "default": {

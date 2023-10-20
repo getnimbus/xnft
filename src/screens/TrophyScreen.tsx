@@ -205,7 +205,7 @@ export function TrophyScreen({ publicKey }: Props) {
           }}
         >
           <View
-            style={tw`bg-[#FFB800] rounded-tr-[20px] rounded-tl-[20px] py-[16px] px-[20px] gap-2`}
+            style={tw`bg-[#FFB800] rounded-tl-[20px] py-[16px] px-[20px] gap-2`}
           >
             <Text style={tw`text-[#000000CC]`}>Your current rank</Text>
             <View style={tw`flex-row items-center`}>
