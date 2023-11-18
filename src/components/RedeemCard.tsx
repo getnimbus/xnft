@@ -30,7 +30,7 @@ export default function RedeemCard({
 
   return (
     <View
-      style={tw`py-[16px] max-w-[335px] bg-white rounded-[16px] gap-[20px]`}
+      style={tw`py-[16px] max-w-[335px] bg-white rounded-[16px] gap-[20px] mt-[20px]`}
     >
       <View style={tw`px-[16px] flex-row items-center gap-[47px]`}>
         <Image

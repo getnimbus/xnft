@@ -24,12 +24,9 @@ const handleGetDataCheckin = async (address: string) => {
 };
 
 const handleGetDataRedeemReward = async (address: string) => {
-  const response = await axios.post(
-    `https://api.getnimbus.io/v2/reward`,
-    {
-      address,
-    }
-  );
+  const response = await axios.post(`https://api.getnimbus.io/v2/reward`, {
+    address,
+  });
   return response.data.data;
 };
 
@@ -55,7 +52,7 @@ export function RewardScreen({ publicKey }: Props) {
     data: dataRedeemReward,
     error: errorDataRedeemReward,
     isLoading: loadingDataRedeemReward,
-    refetch
+    refetch,
   } = useQuery<any>({
     queryFn: () => handleGetDataRedeemReward(publicKey),
     queryKey: ["redeem-reward", publicKey],
@@ -79,13 +76,15 @@ export function RewardScreen({ publicKey }: Props) {
 
   const handleRedeem = async (data: any) => {
     try {
-      await axios.post("https://api.getnimbus.io/v2/reward/redeem", {
-        address: publicKey,
-        campaignName: data?.campaignName,
-      }).then(() => {
-        setSelectedType('your');
-        refetch();
-      });
+      await axios
+        .post("https://api.getnimbus.io/v2/reward/redeem", {
+          address: publicKey,
+          campaignName: data?.campaignName,
+        })
+        .then(() => {
+          setSelectedType("your");
+          refetch();
+        });
     } catch (e) {
       console.error(e);
     }
@@ -100,7 +99,7 @@ export function RewardScreen({ publicKey }: Props) {
         paddingTop: "50px",
       }}
     >
-      <View style={tw`px-[20px] gap-[20px]`}>
+      <View style={tw`px-[20px]`}>
         <View style={tw`flex-row justify-between`}>
           <Text style={tw`text-center text-2xl font-bold text-white`}>
             Reward
@@ -122,7 +121,7 @@ export function RewardScreen({ publicKey }: Props) {
         </View>
 
         <View
-          style={tw`flex-row justify-between p-2 bg-[#FFFFFF1A] rounded-[100px]`}
+          style={tw`flex-row justify-between p-2 bg-[#FFFFFF1A] rounded-[100px] mt-[20px]`}
         >
           <TouchableOpacity
             style={tw`flex-1 rounded-[100px] py-[8px] justify-center items-center ${
@@ -177,7 +176,7 @@ export function RewardScreen({ publicKey }: Props) {
                 }}
               />
             ) : (
-              <Text style={tw`text-base text-center text-white`}>
+              <Text style={tw`text-base text-center text-white mt-[20px]`}>
                 There are no redeems
               </Text>
             )}
@@ -199,7 +198,7 @@ export function RewardScreen({ publicKey }: Props) {
                 }}
               />
             ) : (
-              <Text style={tw`text-base text-center text-white`}>
+              <Text style={tw`text-base text-center text-white mt-[20px]`}>
                 There are no gifts
               </Text>
             )}

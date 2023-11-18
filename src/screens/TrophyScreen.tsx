@@ -220,7 +220,7 @@ export function TrophyScreen({ publicKey }: Props) {
                   </Text>
                 ) : (
                   <Text
-                    style={tw`text-[#131313] text-base font-semibold w-[30px]`}
+                    style={tw`text-[#131313] text-sm font-semibold w-[30px]`}
                   >
                     N/A
                   </Text>
