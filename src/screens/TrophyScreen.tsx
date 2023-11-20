@@ -214,13 +214,13 @@ export function TrophyScreen({ publicKey }: Props) {
               <View style={tw`flex-1 flex-row items-center gap-[20px]`}>
                 {formatDataLeaderboard[currentUserRank]?.rank ? (
                   <Text
-                    style={tw`text-[#131313] text-2xl font-semibold w-[30px]`}
+                    style={tw`text-[#131313] text-2xl font-semibold min-w-[30px]`}
                   >
                     {formatDataLeaderboard[currentUserRank]?.rank}
                   </Text>
                 ) : (
                   <Text
-                    style={tw`text-[#131313] text-sm font-semibold w-[30px]`}
+                    style={tw`text-[#131313] text-base font-semibold min-w-[30px]`}
                   >
                     N/A
                   </Text>
